@@ -9,7 +9,18 @@ class Person:
 
 #Use the Person class to create an object, and then execute the printname method:
 
+# 1) Parent -> Child: Animal -> Cat
+class Animal:
+    def __init__(self, name: str):
+        self.name = name
 
+    def speak(self) -> str:
+        return "..."
+
+
+class Cat(Animal):
+    def speak(self) -> str:
+        return f"{self.name}: Meow"
  # 2) Vehicle -> Bike (наследуем поля и методы)
 class Vehicle:
     def __init__(self, brand: str):
@@ -51,7 +62,7 @@ class Circle(Shape):
 
 
 if __name__ == "__main__":
-    cat = Cat("Murka")
+    cat = Cat ("Murka")
     print("Example 1:", cat.speak())
 
     bike = Bike("Giant")
