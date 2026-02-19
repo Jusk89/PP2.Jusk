@@ -9,8 +9,7 @@ class Person:
 
 #Use the Person class to create an object, and then execute the printname method:
 
-x = Person("John", "Doe")
-x.printname()
+
  # 2) Vehicle -> Bike (наследуем поля и методы)
 class Vehicle:
     def __init__(self, brand: str):
