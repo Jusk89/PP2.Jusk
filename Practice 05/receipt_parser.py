@@ -28,10 +28,14 @@ def extract_date_time(receipt_text):
     return date_time.group(1) if date_time else None
 
 def find_payment_method(receipt_text):
-    # Регулярное выражение для поиска метода оплаты
-    payment_pattern = r'Банковская карта:\s*(\d{1,3}(?:\s?\d{3})*(?:,\d{2})?)'
+    # Обновляем регулярное выражение для извлечения БИН с "Банковская карта:"
+    payment_pattern = r'БИН\s*(\d{12})'  # Ищем первые 6 цифр после фразы "Банковская карта:"
     payment = re.search(payment_pattern, receipt_text)
-    return payment.group(1) if payment else None
+    
+    if payment:
+        return payment.group(1)  # Возвращаем первые 6 цифр (БИН)
+    else:
+        return "БИН не найден"
 
 def parse_receipt(receipt_text):
     receipt_data = {}
@@ -49,7 +53,7 @@ def create_structured_output(parsed_data):
     # Форматируем вывод в виде текста с отступами и разделением
     structured_output = ""
     structured_output += f"Дата и время: {parsed_data['date_time']}\n\n"
-    structured_output += f"Метод оплаты: {parsed_data['payment_method']}\n\n"
+    structured_output += f"Метод оплаты (БИН): {parsed_data['payment_method']}\n\n"
     structured_output += "Товары:\n"
     
     for idx, product in enumerate(parsed_data['products']):
