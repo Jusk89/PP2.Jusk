@@ -1,5 +1,3 @@
-# phonebook.py
-
 import csv
 from connect import get_connection
 
