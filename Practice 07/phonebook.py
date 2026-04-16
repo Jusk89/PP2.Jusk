@@ -19,7 +19,6 @@ def create_table():
     conn.close()
     print("Table 'phonebook' is ready.")
 
-
 def insert_from_csv(filename):
     conn = get_connection()
     cur = conn.cursor()
@@ -45,7 +44,6 @@ def insert_from_csv(filename):
     conn.close()
     print("Contacts inserted from CSV.")
 
-
 def insert_from_console():
     name = input("Enter name: ")
     phone = input("Enter phone: ")
@@ -66,7 +64,6 @@ def insert_from_console():
 
     cur.close()
     conn.close()
-
 
 def update_contact():
     search_value = input("Enter current name or phone of contact: ")
@@ -113,7 +110,6 @@ def update_contact():
 
     cur.close()
     conn.close()
-
 
 def query_contacts():
     print("\nSearch options:")
@@ -162,7 +158,6 @@ def query_contacts():
 
     cur.close()
     conn.close()
-
 
 def delete_contact():
     value = input("Enter username or phone to delete: ")

@@ -1,18 +1,22 @@
 -- 2. Procedure: insert new user, or update phone if exists
-CREATE OR REPLACE PROCEDURE insert_or_update_user(user_name TEXT, user_phone TEXT)
+CREATE OR REPLACE PROCEDURE insert_user(user_name TEXT, user_phone TEXT)
 AS $$
+BEGIN
+    INSERT INTO phonebook(name, phone)
+    VALUES (user_name, user_phone);
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE update_user(user TEXT, user_phone TEXT)
+AS$$
 BEGIN
     IF EXISTS (SELECT 1 FROM phonebook WHERE username = user_name) THEN
         UPDATE phonebook
         SET phone = user_phone
         WHERE username = user_name;
-    ELSE
-        INSERT INTO phonebook(username, phone)
-        VALUES (user_name, user_phone);
     END IF;
 END;
 $$ LANGUAGE plpgsql;
-
 
 -- 3. Procedure: insert many users, validate phones
 CREATE OR REPLACE PROCEDURE insert_many_users(

@@ -32,3 +32,20 @@ BEGIN
     LIMIT lim OFFSET offs;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION practice()
+RETURNS TABLE(
+    username VARCHAR,
+    phone VARCHAR,
+    create_at DATE
+)
+AS$$
+BEGIN
+RETURN QUERY
+SELECT p.create_at, p.username, p.phone
+FROM phonebook p
+WHERE p.create_at >= NOW() - INTERVAL '30 days'
+ORDER BY p.create_at
+
+END;
+$$ LANGUAGE plpgsql;
