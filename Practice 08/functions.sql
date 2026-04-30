@@ -8,9 +8,9 @@ RETURNS TABLE (
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT p.id, p.username, p.phone
+    SELECT p.id, p.name, p.phone
     FROM phonebook p
-    WHERE p.username ILIKE '%' || pattern_text || '%'
+    WHERE p.name ILIKE '%' || pattern_text || '%'
        OR p.phone ILIKE '%' || pattern_text || '%';
 END;
 $$ LANGUAGE plpgsql;
@@ -26,7 +26,7 @@ RETURNS TABLE (
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT p.id, p.username, p.phone
+    SELECT p.id, p.name, p.phone
     FROM phonebook p
     ORDER BY p.id
     LIMIT lim OFFSET offs;
@@ -39,13 +39,13 @@ RETURNS TABLE(
     phone VARCHAR,
     create_at DATE
 )
-AS$$
+AS $$
 BEGIN
 RETURN QUERY
-SELECT p.create_at, p.username, p.phone
+SELECT p.create_at, p.name, p.phone
 FROM phonebook p
 WHERE p.create_at >= NOW() - INTERVAL '30 days'
-ORDER BY p.create_at
+ORDER BY p.create_at;
 
 END;
 $$ LANGUAGE plpgsql;

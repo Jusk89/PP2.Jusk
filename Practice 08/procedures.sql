@@ -8,12 +8,12 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE PROCEDURE update_user(user TEXT, user_phone TEXT)
-AS$$
+AS $$
 BEGIN
-    IF EXISTS (SELECT 1 FROM phonebook WHERE username = user_name) THEN
+    IF EXISTS (SELECT 1 FROM phonebook WHERE name = user_name) THEN
         UPDATE phonebook
         SET phone = user_phone
-        WHERE username = user_name;
+        WHERE name = user_name;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
@@ -36,12 +36,12 @@ BEGIN
         -- пример простой проверки: телефон должен состоять только из цифр
         -- и иметь длину от 10 до 15
         IF user_phones[i] ~ '^[0-9]{10,15}$' THEN
-            IF EXISTS (SELECT 1 FROM phonebook WHERE username = user_names[i]) THEN
+            IF EXISTS (SELECT 1 FROM phonebook WHERE name = user_names[i]) THEN
                 UPDATE phonebook
                 SET phone = user_phones[i]
-                WHERE username = user_names[i];
+                WHERE name = user_names[i];
             ELSE
-                INSERT INTO phonebook(username, phone)
+                INSERT INTO phonebook(name, phone)
                 VALUES (user_names[i], user_phones[i]);
             END IF;
         ELSE
@@ -60,7 +60,7 @@ CREATE OR REPLACE PROCEDURE delete_by_username_or_phone(value_text TEXT)
 AS $$
 BEGIN
     DELETE FROM phonebook
-    WHERE username = value_text
+    WHERE name = value_text
        OR phone = value_text;
 END;
 $$ LANGUAGE plpgsql;

@@ -5,7 +5,7 @@ pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 surface = pygame.Surface((100, 100), pygame.SRCALPHA)
 surface.fill((255, 0, 0, 128))
-pygame.display.set_caption("Моё первое окно")
+pygame.display.set_caption("Моё")
 x= 50
 y= 50
 radius = 25

@@ -1,10 +1,10 @@
-from connect import get_db_connection
+from connect import get_connection
 
 
 def search_pattern():
     pattern = input("Enter pattern to search: ")
 
-    conn = get_db_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM search_phonebook(%s);", (pattern,))
@@ -25,10 +25,10 @@ def insert_or_update():
     name = input("Enter username: ")
     phone = input("Enter phone: ")
 
-    conn = get_db_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute("CALL insert_or_update_user(%s, %s);", (name, phone))
+    cur.execute("CALL insert_user(%s, %s);", (name, phone))
     conn.commit()
 
     print("User inserted or updated successfully.")
@@ -50,7 +50,7 @@ def insert_many():
         names.append(name)
         phones.append(phone)
 
-    conn = get_db_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
     cur.execute("""
@@ -74,7 +74,7 @@ def show_paginated():
     limit = int(input("Enter limit: "))
     offset = int(input("Enter offset: "))
 
-    conn = get_db_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM get_phonebook_paginated(%s, %s);", (limit, offset))
@@ -94,7 +94,7 @@ def show_paginated():
 def delete_user():
     value = input("Enter username or phone to delete: ")
 
-    conn = get_db_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
     cur.execute("CALL delete_by_username_or_phone(%s);", (value,))
@@ -110,7 +110,7 @@ def main():
     while True:
         print("\n--- PHONEBOOK MENU ---")
         print("1. Search by pattern")
-        print("2. Insert or update user")
+        print("2. Insert user")
         print("3. Insert many users")
         print("4. Show paginated data")
         print("5. Delete by username or phone")
